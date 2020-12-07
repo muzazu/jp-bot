@@ -16,6 +16,6 @@ module.exports = (msg) => {
 		}
 	})
 	const arg = args.filter((ar) => !ar.startsWith('-')).join(' ')
-	const clearArg = arg.replace(/\W/g, '')
+	const clearArg = arg.replace(/"/g, '') // remove double quoute
 	return [commandname, clearArg, filters]
 }
