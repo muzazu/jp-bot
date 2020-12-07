@@ -3,13 +3,15 @@ const { MessageEmbed } = require('discord.js')
 module.exports = {
 	name: 'help',
 	aliases: ['h'],
-	description: 'Display all commands and descriptions',
+	description: `Display all commands and descriptions`,
 	execute(message, arg) {
 		const commands = message.client.commands.array()
 
 		const helpEmbed = new MessageEmbed()
 			.setTitle(`${message.client.user.username} Help`)
-			.setDescription('List of all commands')
+			.setDescription(
+				`Add third argument to find specific command ex: \`${process.env.PREFIX}help kanji\``
+			)
 			.setColor('#F8AA2A')
 
 		commands.forEach((cmd) => {

@@ -32,7 +32,7 @@ client.on('message', async (message) => {
 	if (message.author.bot) return
 	if (!message.guild) return
 
-	const [cmdName, arg] = getcommand(message)
+	const [cmdName, arg, filters] = getcommand(message)
 	const command =
 		client.commands.get(cmdName) ||
 		client.commands.find(
@@ -55,7 +55,7 @@ client.on('message', async (message) => {
 	}
 
 	try {
-		command.execute(message, arg)
+		command.execute(message, arg, filters)
 	} catch (error) {
 		console.log(error)
 	}
