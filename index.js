@@ -1,24 +1,22 @@
 /* eslint-disable no-console */
 const { Client, Collection } = require('discord.js')
-const dotenv = require('dotenv').config()
 const commands = require('./commands')
 const getcommand = require('./utils/getcommand')
 
-if (dotenv.error) {
-	throw dotenv.error
-}
-const config = dotenv.parsed
+// eslint-disable-next-line global-require
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
+
 const cache = {}
 const client = new Client()
 client.commands = new Collection()
-client.prefix = config.PREFIX
+client.prefix = process.env.PREFIX
 // handle login bot
-client.login(config.TOKEN)
+client.login(process.env.TOKEN)
 
 // log when ready
 client.on('ready', () => {
-	console.log(`use ${config.PREFIX}help for command list`)
-	client.user.setActivity(`use ${config.PREFIX}help for command list`)
+	console.log(`use ${process.env.PREFIX}help for command list`)
+	client.user.setActivity(`use ${process.env.PREFIX}help for command list`)
 })
 client.on('warn', (info) => console.log(info))
 client.on('error', console.error)
