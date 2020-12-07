@@ -45,6 +45,7 @@ const generateHashtag = () => {
 module.exports = {
 	name: 'kanji',
 	aliases: ['k'],
+	cooldown: 5000,
 	description: `Find kanji with english word for example \`${process.env.PREFIX}kanji "home"\`, if you want random kanji just use \`${process.env.PREFIX}kanji\``,
 	async execute(message, arg, filters) {
 		const title = !arg ? 'Random Kanji' : `Result of ${arg}`

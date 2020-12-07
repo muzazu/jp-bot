@@ -1,5 +1,6 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-console */
-const { Client, Collection } = require('discord.js')
+const { Client, Collection, MessageEmbed } = require('discord.js')
 const commands = require('./commands')
 const getcommand = require('./utils/getcommand')
 
@@ -40,13 +41,20 @@ client.on('message', async (message) => {
 
 	// set cache
 	if (!cache[message.author.id]) cache[message.author.id] = {}
-	const now = new Date()
+	const now = Date.now()
 
 	if (
 		cache[message.author.id][command.name] &&
 		cache[message.author.id][command.name].cooldown > now
 	)
-		return
+		return new MessageEmbed()
+			.setTitle(`Oops you're too fast`)
+			.description(
+				`try it again after **${
+					now - cache[message.author.id][command.name].cooldown
+				} seconds**`
+			)
+			.setColor('#eb3434')
 
 	cache[message.author.id][command.name] = {
 		cooldown: now + command.cooldown || 1000,
