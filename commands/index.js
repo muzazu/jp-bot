@@ -7,7 +7,10 @@ module.exports = {
 	'-limit': {
 		name: 'kanji -limit',
 		aliases: ['-limit'],
-		description: `Limit result of kanji \`${process.env.PREFIX}kanji -limit=1\``,
+		description: `
+			Limit result of kanji \`${process.env.PREFIX}kanji -limit=1\`
+			Default and max limit: \`4\`
+			`,
 	},
 	'-jlpt': {
 		name: 'kanji -jlpt',

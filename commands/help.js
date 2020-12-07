@@ -21,7 +21,7 @@ module.exports = {
 						cmd.aliases ? `(${cmd.aliases})` : ''
 					}**`,
 					`${cmd.description}`,
-					true
+					false
 				)
 			} else if (arg.toLowerCase() === cmd.name.toLowerCase()) {
 				helpEmbed.addField(
@@ -29,7 +29,7 @@ module.exports = {
 						cmd.aliases ? `(${cmd.aliases})` : ''
 					}**`,
 					`${cmd.description}`,
-					true
+					false
 				)
 			}
 		})

@@ -2,6 +2,10 @@
 const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
 
+/**
+ * handle generate description
+ * @param {object} data
+ */
 const generateDescription = (data) => `
     JLPT : ${data.jlpt.join(', ')},
     common: ${data.is_common ? `yes` : `no`}
@@ -20,6 +24,23 @@ const generateDescription = (data) => `
 		.join('\n')}
     ---------------------\n
 `
+/**
+ * generate random jlpt hashtag
+ * TODO: generate word from popular kanji
+ */
+const generateHashtag = () => {
+	const jlpts = [
+		'%23jlpt-n5',
+		'%23jlpt-n4',
+		'%23jlpt-n3',
+		'%23jlpt-n2',
+		'%23jlpt-n1',
+	]
+
+	const randomize = Math.floor(Math.random() * 5) + 1
+
+	return jlpts[randomize]
+}
 
 module.exports = {
 	name: 'kanji',
@@ -30,10 +51,21 @@ module.exports = {
 
 		const helpEmbed = new MessageEmbed().setTitle(title).setColor('#32a852')
 		try {
-			const res = await fetch(`${process.env.API_URL}?keyword=${arg}`)
+			const res = await fetch(
+				`${process.env.API_URL}?keyword=${arg || generateHashtag()}`
+			)
 			const resJson = await res.json()
 			let count = 0
-			resJson.data.forEach((val, index) => {
+			let limit = 4
+
+			if (
+				filters &&
+				!Number.isNaN(filters.limit) &&
+				parseInt(filters.limit, 10) < 4
+			)
+				limit = parseInt(filters.limit, 10)
+
+			resJson.data.forEach((val) => {
 				// TODO: simplify logic
 				// handle filter -jlpt
 				if (
@@ -42,12 +74,7 @@ module.exports = {
 					val.jlpt.includes(`jlpt-${filters.jlpt}`)
 				) {
 					// handle filter limit
-					if (
-						!Number.isNaN(filters.limit) &&
-						filters.limit > 0 &&
-						parseInt(filters.limit, 10) <= count
-					)
-						return
+					if (limit <= count) return
 
 					helpEmbed.addField(
 						`**${val.slug} (${val.japanese[0].reading})**`,
@@ -57,21 +84,8 @@ module.exports = {
 					count++
 				} else if (!filters.jlpt) {
 					// handle filter limit
-					if (
-						filters &&
-						!Number.isNaN(filters.limit) &&
-						filters.limit > 0 &&
-						parseInt(filters.limit, 10) <= index
-					)
-						return
+					if (limit <= count) return
 
-					helpEmbed.addField(
-						`**${val.slug} (${val.japanese[0].reading})**`,
-						`${generateDescription(val)}`,
-						false
-					)
-					count++
-				} else if (!filters) {
 					helpEmbed.addField(
 						`**${val.slug} (${val.japanese[0].reading})**`,
 						`${generateDescription(val)}`,
