@@ -52,9 +52,10 @@ module.exports = {
 
 		const helpEmbed = new MessageEmbed().setTitle(title).setColor('#32a852')
 		try {
-			const res = await fetch(
+			const API = new URL(
 				`${process.env.API_URL}?keyword=${arg || generateHashtag()}`
 			)
+			const res = await fetch(API)
 			const resJson = await res.json()
 			let count = 0
 			let limit = 4
