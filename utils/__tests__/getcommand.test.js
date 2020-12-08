@@ -1,5 +1,5 @@
-const mockMessage = require('../../__mocks__/message')
-const getcommand = require('../getcommand')
+const mockMessage = require('../../__mocks__/message.js')
+const getcommand = require('../getcommand.js')
 
 jest.disableAutomock()
 
