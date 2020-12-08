@@ -4,8 +4,9 @@ const getcommand = require('../getcommand.js')
 jest.disableAutomock()
 
 let data
-beforeEach(() => {
-	data = getcommand(mockMessage)
+beforeEach(async () => {
+	const message = await mockMessage
+	data = getcommand(message)
 })
 describe('getCommand', () => {
 	test('should return command name', () => {
