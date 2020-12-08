@@ -1,6 +1,8 @@
 const mockMessage = require('../../__mocks__/message')
 const getcommand = require('../getcommand')
 
+jest.disableAutomock()
+
 let data
 beforeEach(() => {
 	data = getcommand(mockMessage)
