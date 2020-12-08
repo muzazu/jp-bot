@@ -8,7 +8,7 @@
 	"license": "MIT",
 	"scripts": {
 		"start": "cross-env node index.js",
-		"test": "cross-env jest",
+		"test": "jest",
 		"lint": "cross-env eslint \"**/*.js\" --ignore-pattern node_modules/"
 	},
 	"husky": {
