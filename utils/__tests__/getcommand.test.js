@@ -8,6 +8,7 @@ beforeEach(() => {
 describe('getCommand', () => {
 	test('should return command name', () => {
 		const cmd = data[0]
+		console.log(cmd)
 		expect(cmd).toBe('kanji')
 	})
 	test('should return empty arg', () => {
