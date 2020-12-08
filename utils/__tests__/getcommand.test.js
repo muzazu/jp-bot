@@ -1,13 +1,25 @@
-const message = require('../../__mocks__/message')
-const getcommand = require('../getcommand')
+const mockMessage = require('../../__mocks__/message.js')
+const getcommand = require('../getcommand.js')
 
+jest.disableAutomock()
+
+let data
+beforeEach(async () => {
+	const message = await mockMessage
+	data = getcommand(message)
+})
 describe('getCommand', () => {
 	test('should return command name', () => {
-		const cmd = getcommand(message)[0]
+		const cmd = data[0]
+		console.log(data)
 		expect(cmd).toBe('kanji')
 	})
-	test('should return arg', () => {
-		const arg = getcommand(message)[1]
-		expect(arg).toBe(undefined)
+	test('should return empty arg', () => {
+		const arg = data[1]
+		expect(arg).toBe('')
+	})
+	test('should return empty filters', () => {
+		const arg = data[2]
+		expect(arg).toMatchObject({})
 	})
 })
