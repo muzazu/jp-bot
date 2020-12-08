@@ -6,8 +6,12 @@ describe('getCommand', () => {
 		const cmd = getcommand(message)[0]
 		expect(cmd).toBe('kanji')
 	})
-	test('should return arg', () => {
+	test('should return empty arg', () => {
 		const arg = getcommand(message)[1]
-		expect(arg).toBe(undefined)
+		expect(arg).toBe('')
+	})
+	test('should return empty filters', () => {
+		const arg = getcommand(message)[2]
+		expect(arg).toMatchObject({})
 	})
 })
