@@ -32,7 +32,11 @@ jobs:
       - name: Installing dependencies...
         run: npm install
       # Runs test
-      - name: Run lint
+      - name: Run lint  
         run: npm run lint
       - name: Run test
         run: npm run test
+        env:
+          TOKEN: ''
+          API_URL: 'https://jisho.org/api/v1/search/words'
+          PREFIX: '-jp '
