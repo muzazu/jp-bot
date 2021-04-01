@@ -16,8 +16,13 @@ client.login(process.env.TOKEN)
 
 // log when ready
 client.on('ready', () => {
-	console.log(`use ${process.env.PREFIX}help for command list`)
-	client.user.setActivity(`use ${process.env.PREFIX}help for command list`)
+	client.user
+		.setPresence({
+			activity: { name: '-jp help', type: 'LISTENING' },
+			status: 'online',
+		})
+		.then(console.log)
+		.catch(console.error)
 })
 client.on('warn', (info) => console.log(info))
 client.on('error', console.error)
